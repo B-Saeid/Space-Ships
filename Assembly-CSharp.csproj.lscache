@@ -51,7 +51,9 @@ TemporaryDependencyNodeTargetIdentifier=netstandard2.1
 /warnaserror+:NU1605
 
 [sourceFiles]
-Assets/Scripts/PlayerSpaceShip.cs
+Assets/Scripts/
+ Missile.cs
+ PlayerSpaceShip.cs
 Temp/obj/Debug/Assembly-CSharp/.NETStandard,Version=v2.1.AssemblyAttributes.cs
 
 [metadataReferences]

@@ -7,6 +7,12 @@ public class PlayerSpaceShip : MonoBehaviour
 {
     public float rotationSpeed = 50f;
     public float flyingSpeed = 10f;
+
+    public GameObject shootingPosition;
+    public GameObject missile;
+
+    public float shootingTimer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +27,8 @@ public class PlayerSpaceShip : MonoBehaviour
             transform.Translate(Vector3.forward * flyingSpeed * Time.deltaTime);
         }
         Fly();
+        Shoot();
+
     }
 
     void Fly()
@@ -31,5 +39,19 @@ public class PlayerSpaceShip : MonoBehaviour
 
         transform.Rotate(-xRotationValue * rotationSpeed * Time.deltaTime, 0, -zRotationValue * rotationSpeed * Time.deltaTime);
 
+    }
+
+    void Shoot()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            if (shootingTimer >= 0.5)
+            {
+                Instantiate(missile, shootingPosition.transform.position, gameObject.transform.rotation);
+                shootingTimer = 0;
+            }
+        }
+
+        shootingTimer += Time.deltaTime;
     }
 }
