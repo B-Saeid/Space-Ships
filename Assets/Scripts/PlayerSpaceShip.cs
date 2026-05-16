@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerSpaceShip : MonoBehaviour
@@ -12,6 +14,7 @@ public class PlayerSpaceShip : MonoBehaviour
     public GameObject missile;
 
     public float shootingTimer;
+    public float playerHealth = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +32,18 @@ public class PlayerSpaceShip : MonoBehaviour
         Fly();
         Shoot();
 
+        if (playerHealth <= 0)
+        {
+            Die();
+        }
+
+    }
+
+    private void Die()
+    {
+        playerHealth = 0;
+        SceneManager.LoadScene("SampleScene"); // Restart For now 
+        // Destroy(gameObject);
     }
 
     void Fly()
@@ -53,5 +68,21 @@ public class PlayerSpaceShip : MonoBehaviour
         }
 
         shootingTimer += Time.deltaTime;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            Destroy(other.gameObject);
+            Die();
+        }
+
+        if (other.gameObject.tag == "EnemyMissile")
+        {
+            Destroy(other.gameObject);
+            playerHealth -= 2;
+            print(playerHealth);
+        }
     }
 }

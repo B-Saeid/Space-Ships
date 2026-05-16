@@ -27,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
         if (timerFloat <= 0)
         {
             int randomPosition = Random.Range(1, 5);
-            print(randomPosition);
+            // print(randomPosition);
             if (randomPosition == 1)
             {
                 Instantiate(enemy, enemyPosition1.transform.position, enemyPosition1.transform.rotation);
