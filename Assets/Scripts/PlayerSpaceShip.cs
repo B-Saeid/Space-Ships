@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class PlayerSpaceShip : MonoBehaviour
 {
@@ -16,6 +12,8 @@ public class PlayerSpaceShip : MonoBehaviour
     public float shootingTimer;
     public float playerHealth = 100;
 
+    public GameObject particleSystem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,10 +23,7 @@ public class PlayerSpaceShip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            transform.Translate(Vector3.forward * flyingSpeed * Time.deltaTime);
-        }
+        MoveForward();
         Fly();
         Shoot();
 
@@ -39,11 +34,24 @@ public class PlayerSpaceShip : MonoBehaviour
 
     }
 
+    private void MoveForward()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            transform.Translate(Vector3.forward * flyingSpeed * Time.deltaTime);
+            particleSystem.SetActive(true);
+        }
+        else
+        {
+            particleSystem.SetActive(false);
+        }
+    }
+
     private void Die()
     {
         playerHealth = 0;
         SceneManager.LoadScene("SampleScene"); // Restart For now 
-        // Destroy(gameObject);
+        // Destroy(gameObject); // Will distroy the camera
     }
 
     void Fly()
